@@ -33,7 +33,7 @@ rm -rf $PREFIX/lib/*.la
 unset PYTHON
 
 export CFLAGS="-O2 -Wl,-S $CFLAGS"
-export CXXFLAGS="-O2 -Wl,-S $CXXFLAGS"
+export CXXFLAGS="-O2 -Wl,-S $CXXFLAGS -D_GLIBCXX_USE_CXX11_ABI=0"
 
 if [ $(uname) == Darwin ]; then
     export LDFLAGS="-headerpad_max_install_names"
@@ -86,6 +86,12 @@ export CPPFLAGS="$CPPFLAGS -I$PREFIX/include"
             --with-xerces=$PREFIX \
             --with-xml2=$PREFIX \
             --without-python \
+            --without-odbc \
+            --without-webp \
+            --without-qhull \
+            --without-jasper \
+            --without-jpeg \
+            --without-pg \
             $OPTS
 
 make -j $CPU_COUNT >> $BUILD_OUTPUT 2>&1
